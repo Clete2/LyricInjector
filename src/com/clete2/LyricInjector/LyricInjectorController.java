@@ -1,5 +1,8 @@
 package com.clete2.LyricInjector;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -20,7 +23,7 @@ public class LyricInjectorController {
 	private void initalize() {
 		this.lyricThreadPool = null;
 		this.musicScanner = new MusicScanner();
-		
+
 		this.threadStatusLabel = new JLabel(this.getThreadStatusLabelText());
 		new LyricInjectorView(this, threadStatusLabel);
 	}
@@ -48,12 +51,42 @@ public class LyricInjectorController {
 
 		return status;
 	}
-	
+
+	public String getInitialFilePath() {
+		StringBuilder initialFilePath = new StringBuilder();
+
+		String userHome = System.getProperty("user.home");
+
+		if(userHome != null) {
+			initialFilePath.append(userHome);
+		}
+		
+		String osName = System.getProperty("os.name").toUpperCase();
+		String fileSeparator = System.getProperty("file.separator");
+
+		// Currently not appending anything after the user home
+		// If it is Linux or some other OS.
+		// With so many Linux distributions it is hard to guess
+		// where the pictures folder might be.
+		// TODO: Search for a pictures folder using a 'smart' fashion.
+		if(osName != null) {
+			if(osName.contains("WIN") && (osName.contains("7") || osName.contains("8"))) {
+				initialFilePath.append(fileSeparator +"Music"+ fileSeparator);
+			} else if(osName.contains("WIN") && osName.contains("XP")) {
+				initialFilePath.append(fileSeparator +"My Music"+ fileSeparator);
+			} else if(osName.contains("MAC")) {
+				initialFilePath.append(fileSeparator +"Music"+ fileSeparator);
+			}
+		}
+
+		return initialFilePath.toString();
+	}
+
 	private void injectLyricsForPath(String path) {
 		// Create a thread pool that will inject lyrics into audio files
 		// Start up 3 times as many threads as logical processors
 		this.lyricThreadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 3);
-		
+
 		// Get all of the audio files from the given path and store each path in an ArrayList
 		//ArrayList<Path> audioPaths = musicScanner.getAudioListFromPath("/Users/Clete2/Desktop/Music/");
 		ArrayList<Path> audioPaths = musicScanner.getAudioListFromPath(path);

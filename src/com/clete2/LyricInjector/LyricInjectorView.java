@@ -47,6 +47,7 @@ public class LyricInjectorView implements ActionListener {
 
 		browseTextField = new JTextField();
 		browseTextField.setBounds(80, 6, 228, 28);
+		browseTextField.setText(lyricInjectorController.getInitialFilePath());
 		frame.getContentPane().add(browseTextField);
 		browseTextField.setColumns(10);
 
