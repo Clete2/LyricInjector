@@ -114,7 +114,7 @@ public class LyricInjectorController {
 
 		try {
 			// 30 second timeout
-			this.lyricThreadPool.invokeAll(lyricInjectors, 30, TimeUnit.SECONDS);
+			this.lyricThreadPool.invokeAll(lyricInjectors);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
