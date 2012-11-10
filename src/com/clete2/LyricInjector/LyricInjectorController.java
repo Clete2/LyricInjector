@@ -1,8 +1,5 @@
 package com.clete2.LyricInjector;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -11,6 +8,11 @@ import java.util.concurrent.TimeUnit;
 
 import javax.swing.JLabel;
 
+/**
+ * Class to control the LyricInjectorView.
+ * @author clete2
+ *
+ */
 public class LyricInjectorController {
 	private JLabel threadStatusLabel;
 	private ExecutorService lyricThreadPool;
@@ -28,6 +30,10 @@ public class LyricInjectorController {
 		new LyricInjectorView(this, threadStatusLabel);
 	}
 
+	/**
+	 * Injects lyrics for a given directory.
+	 * @param path A directory path to scan & inject lyrics.
+	 */
 	public void injectLyrics(final String path) {
 		Runnable lyricInjection = new Runnable() {
 			public void run() {
@@ -52,6 +58,10 @@ public class LyricInjectorController {
 		return status;
 	}
 
+	/**
+	 * Guesses the initial file path to the user's music directory.
+	 * @return A guess of the file path to the user's music directory.
+	 */
 	public String getInitialFilePath() {
 		StringBuilder initialFilePath = new StringBuilder();
 
@@ -82,6 +92,10 @@ public class LyricInjectorController {
 		return initialFilePath.toString();
 	}
 
+	/**
+	 * Multi-threaded injection of lyrics. Sets up and executes the injection of lyrics.
+	 * @param path Directory to scan & inject lyrics.
+	 */
 	private void injectLyricsForPath(String path) {
 		// Create a thread pool that will inject lyrics into audio files
 		// Start up 3 times as many threads as logical processors

@@ -6,6 +6,6 @@ public class LyricInjectorMain {
 	 * @throws InterruptedException 
 	 */
 	public static void main(String[] args) {
-		LyricInjectorController controller = new LyricInjectorController();
+		new LyricInjectorController();
 	}
 }

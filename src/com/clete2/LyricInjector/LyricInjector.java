@@ -24,7 +24,11 @@ public class LyricInjector implements Callable<Boolean> {
 		this.audioFilePath = audioFilePath;
 	}
 
-	public void injectLyricsForFilePath(Path audioFilePath) {
+	/**
+	 * Given a Path for a file, injects lyrics by using the tag to find the song online.
+	 * @param audioFilePath Path to a single music file.
+	 */
+	public void injectLyrics(Path audioFilePath) {
 		AudioFile audioFile;
 		try {
 			audioFile = AudioFileIO.read(audioFilePath.toFile());
@@ -64,7 +68,7 @@ public class LyricInjector implements Callable<Boolean> {
 
 	@Override
 	public Boolean call() throws Exception {
-		this.injectLyricsForFilePath(this.audioFilePath);
+		this.injectLyrics(this.audioFilePath);
 		// TODO: Change return!
 		return null;
 	}

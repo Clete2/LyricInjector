@@ -15,7 +15,17 @@ import java.util.ArrayList;
 import eu.medsea.mimeutil.MimeType;
 import eu.medsea.mimeutil.MimeUtil2;
 
+/**
+ * A class to scan for music files.
+ * @author clete2
+ *
+ */
 public class MusicScanner {
+	/**
+	 * Find all music files in the directory given.
+	 * @param pathStart Directory to scan.
+	 * @return ArrayList<Path> containing individual music files.
+	 */
 	public ArrayList<Path> getAudioListFromPath(String pathStart) {
 		final ArrayList<Path> audioList = new ArrayList<Path>();
 		final MimeUtil2 mimeUtil = new MimeUtil2();
