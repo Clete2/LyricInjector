@@ -113,7 +113,7 @@ public class LyricInjectorController {
 		}
 
 		try {
-			// 30 second timeout
+			// TODO: Insert a timeout for each thread, not the whole queue.
 			this.lyricThreadPool.invokeAll(lyricInjectors);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -121,7 +121,9 @@ public class LyricInjectorController {
 		}
 
 		try {
-			this.lyricThreadPool.awaitTermination(30, TimeUnit.SECONDS);
+			// For now we will wait 1 minute per injector.
+			// TODO: Insert a timeout for each thread.
+			this.lyricThreadPool.awaitTermination(lyricInjectors.size(), TimeUnit.MINUTES);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
